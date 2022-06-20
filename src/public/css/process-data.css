@@ -1,0 +1,20 @@
+.dataview {
+    border: 2px solid #c1c1c1;
+    border-radius: 10px;
+    margin-top: 50px;
+    display: flex;
+}
+.header {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+table {
+}
+.data-table {
+    margin-top: 50px;
+    overflow-y: scroll;
+    height: 900px;
+}

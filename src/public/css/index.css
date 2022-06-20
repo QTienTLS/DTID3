@@ -1,0 +1,39 @@
+.form-upload{
+    border: 1px solid #c1c1c1;
+    position: relative;
+    left: 50%;
+    top: 100px;
+    transform: translateX(-50%);
+    width: 600px;
+    padding: 50px 60px;
+    border-radius: 4px;
+}
+#floatingInput{
+    margin-top: 30px;
+}
+.btn{
+    float: right;
+}
+.datas{
+    border: 1px solid #c1c1c1;
+    border-radius: 4px;
+    margin-top: 150px;
+}
+.item{
+    display: flex;
+    flex-direction: row;
+    padding: 10px 20px;
+    border-radius: 4px;
+    justify-content: space-around;
+    width: 700px;
+    position: relative;
+    left: 50%;
+    transform: translateX(-50%);
+}
+.item a{
+    text-decoration: none;
+    padding: 10px;
+    background-color: aqua;
+    color: black;
+    border-radius: 10px;
+}

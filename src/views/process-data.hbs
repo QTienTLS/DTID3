@@ -1,0 +1,90 @@
+<div class="dataview">
+    <div class="header">
+        <div class="header-1">
+            <div class="name"><strong>Dataset name: </strong>{{data.name}}</div>
+            <div class="record"><strong>Number of records: </strong> {{data.record}}</div>
+        </div>
+        <div class="header-2">
+            <div class="year"><strong>Year: </strong>{{data.minYear}}-{{data.maxYear}}</div>
+            <div class="mile"><strong>Distance traveled (Miles): </strong>{{data.minMile}}-{{data.maxMile}}</div>
+        </div>
+        <div class="header-3">
+            <div class="price"><strong>Price (€): </strong>{{data.minPrice}}-{{data.maxPrice}}</div>
+        </div>
+    </div>
+</div>
+<div class="optional">
+    <button id="dt-id3" type="button" class="btn btn-primary" data-bs-toggle="modal"
+        data-bs-target="#exampleModal" data-id="{{data.dataID}}">Build classifier: Decision Tree</button>
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">what percentage of records do you want to train:</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="" method="GET" id="form-dt">
+                        <input type="text" class="form-control" id="per-input">
+                    </form>
+
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" id="btnsubmit" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script>
+    const modal = document.getElementById('exampleModal');
+    modal.addEventListener('show.bs.modal',function(e){
+        const btn = e.relatedTarget;
+        const id = btn.getAttribute('data-id');
+        const form = document.getElementById('form-dt');
+        const btnsubmit = document.getElementById('btnsubmit');
+        btnsubmit.addEventListener('click',function(){
+            const percent = document.getElementById('per-input').value;
+            form.action = `http://localhost:3000/dt/${id}/${percent}`;
+            form.submit();
+        })
+        
+    })
+</script>
+<div class="data-table">
+    <table class="table table-success table-striped" id="data">
+        <thead>
+            <tr>
+                <th scope="col">ID</th>
+                <th scope="col">Year</th>
+                <th scope="col">Distance traveled (Miles)</th>
+                <th scope="col">Make by</th>
+                <th scope="col">Model</th>
+                <th scope="col">Price (€)</th>
+            </tr>
+        </thead>
+        <tbody>
+        </tbody>
+    </table>
+</div>
+{{#each data.data as |item i|}}
+<div class="take-data" data-year="{{this.A}}" data-mile="{{this.B}}" data-make="{{this.C}}" data-model="{{this.D}}"
+    data-price="{{this.E}}" data-id="{{i}}"></div>
+{{/each}}
+<script>
+    const listData = document.getElementsByClassName('take-data');
+    const table = document.getElementById('data').getElementsByTagName('tbody')[0];
+    for (let i = 0; i < listData.length; i++) {
+        const row = table.insertRow();
+        const x = document.createElement('th');
+        x.setAttribute('scope', 'row');
+        x.innerHTML = parseInt(listData[i].getAttribute('data-id')) + 1;
+        row.appendChild(x);
+        row.insertCell(1).innerHTML = listData[i].getAttribute('data-year');
+        row.insertCell(2).innerHTML = listData[i].getAttribute('data-mile');
+        row.insertCell(3).innerHTML = listData[i].getAttribute('data-make');
+        row.insertCell(4).innerHTML = listData[i].getAttribute('data-model');
+        row.insertCell(5).innerHTML = listData[i].getAttribute('data-price');
+    }
+</script>

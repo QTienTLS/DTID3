@@ -1,0 +1,49 @@
+<div class="form-upload">
+    <form enctype="multipart/form-data" action="http://localhost:3000/upload-data" method="POST">
+        <div class="mb-3">
+            <label for="uploadfile" class="form-label"><strong>Upload your data here ( Gửi lên tệp dữ
+                    liệu)</strong></label>
+            <input class="form-control" type="file" id="uploadfile" name="uploadfile">
+            <div class="form-floating mb-3">
+                <input type="text" name="dataname" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Name your data: </label>
+            </div>
+        </div>
+        <button class="btn btn-primary" type="submit">Import</button>
+        {{#if message}}
+        <p style="color: green;">{{message}}</p>
+        {{/if}}
+    </form>
+    
+</div>
+<a href=""></a>
+<div class="datas">
+        {{#each data}}
+        <div class="data" data-name="{{this.name}}" data-record="{{this.record}}"
+        data-id="{{this.id}}"
+        ></div>
+        {{/each}}
+        <div class="listData">
+        </div>
+        <script>
+            const listData = document.getElementsByClassName('data');
+            for(let i = 0;i<listData.length;i++){
+                const item = document.createElement('div');
+                item.classList.add('item');
+                const name = document.createElement('p');
+                name.innerHTML = `<strong>Data name</strong>: ${listData[i].getAttribute('data-name')}`;
+                name.classList.add('item-name');
+                const record = document.createElement('p');
+                record.innerHTML = `<strong>Records</strong>: ${listData[i].getAttribute('data-record')}`;
+                record.classList.add('item-record');
+                record.classList.add('item-record')
+                const link = document.createElement('a');
+                link.href = `http://localhost:3000/preprocess/${listData[i].getAttribute('data-id')}`;
+                link.innerHTML = 'Pre-process Data';
+                item.appendChild(name);
+                item.appendChild(record);
+                item.appendChild(link);
+                document.getElementsByClassName('listData')[0].appendChild(item);
+            }
+        </script>
+    </div>
